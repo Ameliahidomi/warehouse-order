@@ -261,15 +261,6 @@ el('toDrinks').addEventListener('click', ()=>{ pageHome.classList.add('hidden');
 el('backFromLunch').addEventListener('click', ()=>{ pageLunch.classList.add('hidden'); pageHome.classList.remove('hidden'); });
 el('backFromDrinks').addEventListener('click', ()=>{ pageDrinks.classList.add('hidden'); pageHome.classList.remove('hidden'); });
 
-// 飲料連結
-document.querySelectorAll('.drink-buttons button').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const url = btn.dataset.url || '';
-    if(!url){ alert('此店網址尚未提供'); return; }
-    window.open(url,'_blank');
-  });
-});
-
 // Login
 el('btnLogin').addEventListener('click', async ()=>{
   const empId = el('empId').value.trim();
