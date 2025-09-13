@@ -46,11 +46,7 @@ button.secondary{background:#ffb777;color:#000}
   <!-- Home page -->
   <div id="page-home" class="hidden">
     <p id="welcome"></p>
-    <div class="row">
-      <label for="orderDate">訂餐日期</label>
-      <input id="orderDate" type="date" />
-    </div>
-    <div class="center">
+      <div class="center">
       <button id="toLunch">午餐</button>
       <button id="toDrinks" class="secondary">飲料</button>
     </div>
@@ -68,14 +64,10 @@ button.secondary{background:#ffb777;color:#000}
         <select id="menuItem"></select>
       </div>
       <div class="row" id="additionalRow">
-        <label>飯麵</label>
+        <label>麵食類</label>
         <select id="potMain" class="hidden">
-          <option value="紅醬">紅醬</option>
-          <option value="白醬">白醬</option>
-          <option value="青醬">青醬</option>
-          <option value="素醬">素醬</option>
-          <option value="直麵">直麵</option>
-          <option value="筆尖麵">筆尖麵</option>
+          <option value="細麵">細麵</option>
+          <option value="扁麵">扁麵</option>
         </select>
       </div>
       <div class="row">
@@ -108,8 +100,8 @@ button.secondary{background:#ffb777;color:#000}
     <div class="row">
       <label>飲料店</label>
       <div class="drink-buttons">
-        <button data-url="https://order.nidin.shop/gb/menu/20202/sayaBJ05B4">樂法</button>
-        <button data-url="https://order.nidin.shop/gb/menu/13924/f26pUd_XuQ">五桐號</button>
+        <button data-url="https://order.nidin.shop/gb/menu/20202/sayaBJ05B4">50嵐</button>
+        <button data-url="https://order.nidin.shop/gb/menu/13924/f26pUd_XuQ">老賴茶坊</button>
       </div>
     </div>
     <div class="center">
@@ -172,9 +164,9 @@ menuItemSel.addEventListener('change', ()=>{
   const raw = menuItemSel.value;
   if(!raw) return;
   const selected = JSON.parse(raw);
-  if(selected.name.includes("焗烤飯") || selected.name.includes("焗烤麵")){
+  if(selected.name.includes("肉燥拌麵") || selected.name.includes("肉燥拌麵")){
     potMainSel.classList.remove('hidden');
-  } else if(selected.name.includes("義大利麵")){
+  } else if(selected.name.includes("麵食類")){
     potMainSel.classList.remove('hidden');
   } else {
     potMainSel.classList.add('hidden');
@@ -219,8 +211,7 @@ async function renderOrders(){
 
 // 新增午餐訂單
 el('addLunch').addEventListener('click', async ()=>{
-  const date = el('orderDate').value;
-  if(!date){ alert('請先選擇訂餐日期'); return; }
+  const date = new Date().toISOString().slice(0,10);
   const restaurant = restaurantSel.value;
   if(!menuItemSel.value){ alert('請選擇餐點'); return; }
   const itemObj = JSON.parse(menuItemSel.value);
