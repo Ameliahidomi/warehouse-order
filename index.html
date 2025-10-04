@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="zh-TW">
 <head>
@@ -64,10 +65,11 @@ button.secondary{background:#ffb777;color:#000}
         <select id="menuItem"></select>
       </div>
       <div class="row" id="additionalRow">
-        <label>麵食類</label>
+        <label>醬汁</label>
         <select id="potMain" class="hidden">
-          <option value="細麵">細麵</option>
-          <option value="扁麵">扁麵</option>
+          <option value="辣">辣</option>
+          <option value="不辣">不辣</option>
+          <option value="麻醬">麻醬</option>
         </select>
       </div>
       <div class="row">
@@ -101,7 +103,7 @@ button.secondary{background:#ffb777;color:#000}
       <label>飲料店</label>
       <div class="drink-buttons">
         <button data-url="https://order.nidin.shop/gb/menu/2967/ImLfQ0aZSe">50嵐</button>
-        <button data-url=https://order.didieats.com.tw/store/liketea0716?group_buy_no=20250006835">老賴茶坊</button>
+        <button data-url="https://order.didieats.com.tw/store/liketea0716?group_buy_no=20250006835">老賴茶坊</button>
       </div>
     </div>
     <div class="center">
@@ -160,18 +162,29 @@ function populateMenu(restaurant){
   });
   potMainSel.classList.add('hidden');
 }
+
+restaurantSel.addEventListener('change', ()=>{
+  populateMenu(restaurantSel.value);
+  el('qty').value = 1;              // 數量回到 1
+  el('note').value = '';            // 清空備註
+  el('spice').selectedIndex = 0;    // 重置調味選單
+  potMainSel.classList.add('hidden'); // 隱藏醬汁欄位
+  potMainSel.selectedIndex = 0;     // 醬汁選單回到第一項
+});
 menuItemSel.addEventListener('change', ()=>{
   const raw = menuItemSel.value;
   if(!raw) return;
   const selected = JSON.parse(raw);
-  if(selected.name.includes("肉燥拌麵") || selected.name.includes("肉燥拌麵")){
-    potMainSel.classList.remove('hidden');
-  } else if(selected.name.includes("麵食類")){
+  const restaurant = restaurantSel.value;
+
+  // ✅ 只有冠成涼麵才顯示醬汁
+  if(restaurant.includes("冠成涼麵")){
     potMainSel.classList.remove('hidden');
   } else {
     potMainSel.classList.add('hidden');
   }
 });
+
 restaurantSel.addEventListener('change', ()=>populateMenu(restaurantSel.value));
 
 // 渲染訂單
@@ -280,5 +293,3 @@ el('btnLogin').addEventListener('click', async ()=>{
 </script>
 </body>
 </html>
-
-
