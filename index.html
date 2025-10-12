@@ -159,7 +159,6 @@ function populateMenu(restaurant){
       lastCat = it.cat;
     }
     const option = document.createElement('option');
-    // 這裡把 category 一併放進 option.value 以便判斷
     option.value = JSON.stringify({name:it.name,price:it.price,cat:it.cat});
     option.textContent = `${it.name} — ${it.price}元`;
     menuItemSel.appendChild(option);
@@ -174,13 +173,13 @@ function populateMenu(restaurant){
 
 restaurantSel.addEventListener('change', ()=>{
   populateMenu(restaurantSel.value);
-  el('qty').value = 1;              // 數量回到 1
-  el('note').value = '';            // 清空備註
-  el('spice').selectedIndex = 0;    // 重置調味選單
-  potMainSel.classList.add('hidden'); // 隱藏醬汁欄位
-  potMainSel.selectedIndex = 0;     // 醬汁選單回到第一項（若有）
-  // reset label
-  el('additionalRow').querySelector('label').textContent = '醬汁';
+  el('qty').value = 1;
+  el('note').value = '';
+  el('spice').selectedIndex = 0;
+  
+  // ❗️重點：只隱藏整欄，不改 label
+  el('additionalRow').classList.add('hidden');
+  potMainSel.innerHTML = '';
 });
 
 menuItemSel.addEventListener('change', ()=>{
@@ -358,6 +357,11 @@ el('btnLogin').addEventListener('click', async ()=>{
       pageLogin.classList.add('hidden');
       pageHome.classList.remove('hidden');
       el('welcome').textContent = `歡迎 ${found.name}`;
+
+      // ✅ 登入後預設隱藏醬汁/主食欄
+      el('additionalRow').classList.add('hidden');
+      potMainSel.innerHTML = '';
+
       loadMenus();
       renderOrders();
     }else{
