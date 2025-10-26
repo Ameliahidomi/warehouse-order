@@ -191,8 +191,9 @@ menuItemSel.addEventListener('change', ()=>{
 
   // 預設先隱藏整欄
   additionalRow.classList.add('hidden');
+   additionalRow.style.display = 'none';
   potMainSel.innerHTML = '';
-  label.textContent = '醬料';
+  label.textContent = '';
 
   // --- 39 Pizza 焗烤類 ---
   if(restaurant.includes('39 Pizza') &&
@@ -203,6 +204,8 @@ menuItemSel.addEventListener('change', ()=>{
       <option value="焗烤麵">焗烤麵</option>
     `;
     additionalRow.classList.remove('hidden');
+    potMainSel.classList.remove('hidden');
+      additionalRow.style.display = 'flex';
     return;
   }
 
@@ -216,11 +219,14 @@ menuItemSel.addEventListener('change', ()=>{
       <option value="番茄醬">番茄醬</option>
     `;
     additionalRow.classList.remove('hidden');
+    potMainSel.classList.remove('hidden');
+      additionalRow.style.display = 'flex';
     return;
   }
 
   // 其他餐點 → 保持隱藏
   additionalRow.classList.add('hidden');
+    additionalRow.style.display = 'none';
 });
 
 // 渲染訂單
