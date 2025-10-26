@@ -71,6 +71,7 @@ button.secondary{background:#ffb777;color:#000}
         <label>調味</label>
         <select id="spice">
           <option>不加</option>
+          <option>微辣</option>
           <option>加醋</option>
         </select>
       </div>
@@ -191,31 +192,28 @@ menuItemSel.addEventListener('change', ()=>{
   // 預設先隱藏整欄
   additionalRow.classList.add('hidden');
   potMainSel.innerHTML = '';
-  label.textContent = '辣度';
+  label.textContent = '醬料';
 
-  // --- 今年貴焿 麵線羹類 ---
-  if(restaurant.includes('今年貴焿') &&
-     (/麵線/i.test(selected.name) || /麵線/i.test(selected.cat || ''))){
-    label.textContent = '辣度';
+  // --- 39 Pizza 焗烤類 ---
+  if(restaurant.includes('39 Pizza') &&
+     (/焗烤/i.test(selected.name) || /焗烤/i.test(selected.cat || ''))){
+    label.textContent = '主食';
     potMainSel.innerHTML = `
-      <option value="不辣">不辣</option>
-      <option value="小辣">小辣</option>
-      <option value="中辣">中辣</option>
-      <option value="大辣">大辣</option>
+      <option value="焗烤飯">焗烤飯</option>
+      <option value="焗烤麵">焗烤麵</option>
     `;
     additionalRow.classList.remove('hidden');
     return;
   }
 
-  // --- 灶蹄蹤堂 便當類 ---
-  if(restaurant.includes('灶蹄蹤堂') &&
-     (/便當/i.test(selected.name) || /便當/i.test(selected.cat || ''))){
-    label.textContent = '主食';
+  // --- 華新牛排 主餐類 ---
+  if(restaurant.includes('華新牛排') &&
+     (/主餐/i.test(selected.name) || /主餐/i.test(selected.cat || ''))){
+    label.textContent = '醬料';
     potMainSel.innerHTML = `
-      <option value="正常飯">正常飯</option>
-      <option value="正常飯+滷汁">正常飯+滷汁</option>
-      <option value="半飯">半飯</option>
-      <option value="半飯+滷汁">半飯+滷汁</option>
+      <option value="蘑菇醬">蘑菇醬</option>
+      <option value="綜合醬">綜合醬</option>
+      <option value="番茄醬">番茄醬</option>
     `;
     additionalRow.classList.remove('hidden');
     return;
@@ -224,7 +222,6 @@ menuItemSel.addEventListener('change', ()=>{
   // 其他餐點 → 保持隱藏
   additionalRow.classList.add('hidden');
 });
-
 
 // 渲染訂單
 async function renderOrders(){
@@ -239,7 +236,7 @@ async function renderOrders(){
       div.innerHTML = `
         <strong>#${idx+1} ${o.restaurant} - ${o.item}</strong>
         <div class="small">日期: ${o.date} | 員工: ${o.employee} | 數量: ${o.qty} | 價格: ${o.price} 元 | 調味: ${o.spice}</div>
-        <div class="small">備註: ${o.note || ''} ${o.potMain?(' | 主餐/辣度: '+o.potMain):''}</div>
+        <div class="small">備註: ${o.note || ''} ${o.potMain?(' | 主餐/醬料: '+o.potMain):''}</div>
         <button class="delete-btn" data-id="${o.id}">刪除</button>
       `;
       ordersList.appendChild(div);
