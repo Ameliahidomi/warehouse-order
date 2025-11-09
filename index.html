@@ -59,7 +59,7 @@ button.secondary{background:#ffb777;color:#000}
 
       <!-- 額外選項 -->
       <div class="row hidden" id="additionalRow">
-        <label>主食</label>
+        <label>辣度</label>
         <select id="potMain"></select>
       </div>
 
@@ -180,8 +180,8 @@ restaurantSel.addEventListener("change", () => {
   additionalRow.classList.add("hidden");
   potMainSel.innerHTML = "";
 
-  // 若為呷飽飽創意鍋燒 → 顯示主食
-  if (restaurantSel.value.includes("呷飽飽創意鍋燒")) {
+  // 若為鍋兵鍋物 → 顯示辣度
+  if (restaurantSel.value.includes("鍋兵鍋物")) {
     showMainOptions();
   }
 });
@@ -190,7 +190,7 @@ menuItemSel.addEventListener("change", () => {
   const restaurant = restaurantSel.value;
   const additionalRow = el("additionalRow");
 
-  if (restaurant.includes("呷飽飽創意鍋燒")) {
+  if (restaurant.includes("鍋兵鍋物")) {
     showMainOptions();
   } else {
     additionalRow.classList.add("hidden");
@@ -200,25 +200,13 @@ menuItemSel.addEventListener("change", () => {
 function showMainOptions() {
   const additionalRow = el("additionalRow");
   const label = additionalRow.querySelector("label");
-  label.textContent = "主食";
+  label.textContent = "辣度";
   potMainSel.innerHTML = `
-    <option>意麵</option>
-    <option>雞絲麵</option>
-    <option>雞絲麵加麵</option>
-    <option>烏龍麵</option>
-    <option>烏龍麵加麵</option>
-    <option>冬粉</option>
-    <option>冬粉加麵</option>
-    <option>蒸煮麵</option>
-    <option>蒸煮麵加麵</option>
-    <option>蛋黃麵</option>
-    <option>蛋黃麵加麵</option>
-    <option>香Q麵</option>
-    <option>香Q麵加麵</option>
-    <option>綠藻麵</option>
-    <option>綠藻麵加麵</option>
-    <option>麵疙瘩</option>
-    <option>麵疙瘩加麵</option>
+    <option>不辣</option>
+    <option>微辣</option>
+    <option>小辣</option>
+    <option>中辣</option>
+    <option>大辣</option>
   `;
   additionalRow.classList.remove("hidden");
 }
